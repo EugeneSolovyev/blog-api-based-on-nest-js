@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BlogModule } from './blog/blog.module';
@@ -8,10 +9,9 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     BlogModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://EugeneSolovyev:sEver0morsk51@cluster0.guoga.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.DB_PATH),
     AuthModule,
     UsersModule,
   ],
